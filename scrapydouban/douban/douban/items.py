@@ -13,6 +13,7 @@ class DoubanItem(scrapy.Item):
     # name = scrapy.Field()
     title = scrapy.Field()     #书名
     pub = scrapy.Field()       #出版信息
+    date = scrapy.Field()      #日期
     tags = scrapy.Field()      #标签
     comment = scrapy.Field()   #评论
     pass

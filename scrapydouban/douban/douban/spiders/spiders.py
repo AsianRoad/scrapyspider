@@ -73,7 +73,7 @@ class doubanspider(Spider):
         print response.status
         self.headers['Host'] = "book.douban.com"
         return Request(
-            url='https://book.douban.com/people/144037678/collect',
+            url='https://book.douban.com/mine?status=collect',
             meta={'cookiejar': response.meta['cookiejar']},
             headers=self.headers,
             callback= self.parse_page
@@ -83,11 +83,14 @@ class doubanspider(Spider):
         print response.status
         for sel in response.xpath('//li[@class="subject-item"]/div[2]'):
             book = DoubanItem()
-            book['comment'] = sel.xpath('div[2]/p/text()').extract()[0]
             book['title'] = sel.xpath('h2/a/text()').extract()[0]
             book['pub'] = sel.xpath('div[1]/text()').extract()[0]
-            #book['tags'] = sel.xpath('div[2]/div[1]/span[3]/text()').extract()[0]
+            book['date'] = sel.xpath('div[2]/div[1]/span[2]/text()').extract()[0]
+            book['tags'] = sel.xpath('//span[@class="tags"]/text()').extract()[0]
+            book['comment'] = sel.xpath('div[2]/p/text()').extract()[0]
 
+
+            print book
 
             yield book
 
