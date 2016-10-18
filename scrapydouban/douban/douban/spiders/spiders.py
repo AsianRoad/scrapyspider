@@ -1,11 +1,14 @@
 # -*- coding:utf-8 -*-
-
+import os
+import urllib2
 import urlparse
-from scrapy.selector import Selector
+import StringIO
+
+import pytesseract
+
+from PIL import Image
 from scrapy import Spider
-
 from scrapy.http import Request, FormRequest
-
 
 
 from douban.items import DoubanItem
@@ -53,9 +56,37 @@ class doubanspider(Spider):
         print 'Preparing login'
         #如果有验证码
         if 'captcha_image' in response.body:
-            print  'copy the link:'
+            print  'link:'
             link = response.xpath('//img[@class="captcha_image"]/@src').extract()[0]
             print link
+            img_data = urllib2.urlopen(link).read()
+            name = "E:\\captcha\\1.png"
+            f = open(name,'wb')
+            f.write(img_data)
+            f.close()
+            fl = open(name,'rb')
+            image = Image.open(fl)
+            image.show()
+
+            # after_deal = image.convert('L')
+            # after_deal.show()
+
+            # name1 = "E:\\captcha\\show.png"
+            # fs = open(name1,'rb')
+            # image2 = Image.open(fs)
+            # image2.show()
+            # after_deal = image2.convert('L')
+            # after_deal.show()
+
+            # last = after_deal.point(lambda x:0 if x < 140 else 256, '1')
+            # last.show()
+            # last.save('E:\\captcha\\ashow.png')
+            # vcode = pytesseract.image_to_string(last)
+            # print vcode
+
+            #fs.close()
+            fl.close()
+
             captcha_solution = raw_input('captcha-solution:')
             captcha_id = urlparse.parse_qs(urlparse.urlparse(link).query,True)['id']
             self.formdata['captcha-solution'] = captcha_solution
