@@ -1,9 +1,6 @@
 # -*- coding:utf-8 -*-
-import os
 import urllib2
 import urlparse
-import StringIO
-
 import pytesseract
 
 from PIL import Image
@@ -71,18 +68,19 @@ class doubanspider(Spider):
             # after_deal = image.convert('L')
             # after_deal.show()
 
-            # name1 = "E:\\captcha\\show.png"
-            # fs = open(name1,'rb')
-            # image2 = Image.open(fs)
-            # image2.show()
-            # after_deal = image2.convert('L')
-            # after_deal.show()
+            name1 = "E:\\captcha\\show.png"
+            fs = open(name1,'rb')
 
-            # last = after_deal.point(lambda x:0 if x < 140 else 256, '1')
-            # last.show()
-            # last.save('E:\\captcha\\ashow.png')
-            # vcode = pytesseract.image_to_string(last)
-            # print vcode
+            image2 = Image.open(fs)
+            image2.show()
+            after_deal = image2.convert('L')
+            after_deal.show()
+
+            last = after_deal.point(lambda x:0 if x < 140 else 256, '1')
+            last.show()
+            last.save('E:\\captcha\\ashow.png')
+            vcode = pytesseract.image_to_string(last)
+            print vcode
 
             #fs.close()
             fl.close()

@@ -16,8 +16,10 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 
 
 ITEM_PIPELINES = {'tutorial.pipelines.MyImagesPipeline':1}
-IMAGES_STORE = 'E:\\scrapyimage'
-DOWNLOAD_DELAY = 0.25
+IMAGES_STORE = 'E:\\scrapy\\scrapyimage'
+DOWNLOAD_DELAY = 0.5
+RANDOMIZE_DOWNLOAD_DELAY = True
+COOKIES_ENABLED = True
 IMAGES_THUMBS = {
     'small':(50,50),
     'big':(200,200)
@@ -27,7 +29,7 @@ IMAGES_THUMBS = {
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
